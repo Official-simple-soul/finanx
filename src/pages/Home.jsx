@@ -17,11 +17,11 @@ function Home() {
           <p className="text-2xl text-white font-light">
             Just like you, trading is in our DNA.
           </p>
-          <div className="flex">
+          <NavLink to={'/signup'} className="flex">
             <button className="bg-white text-primary-blue px-8 py-3 rounded-lg text-primary font-semibold">
               Open Account
             </button>
-          </div>
+          </NavLink>
         </div>
         <div className="md:w-1/2 h-full">
           <img
