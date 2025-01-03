@@ -2,7 +2,7 @@ import { NavLink } from 'react-router';
 
 const SignUp = () => (
   <div className="h-screen flex items-center justify-center bg-gray-100">
-    <div className="w-full max-w-lg p-8 space-y-6 bg-white rounded-lg shadow-lg">
+    <div className="w-full max-w-lg p-8 space-y-6 mt-[80px] md:mt-0 bg-white rounded-lg shadow-lg">
       <h2 className="text-2xl font-bold text-dark-blue text-center">
         Create Your Account
       </h2>
@@ -110,9 +110,6 @@ const SignUp = () => (
           <NavLink to="/login" className="text-primary-blue hover:underline">
             Sign In
           </NavLink>
-          {/* <a href="/login" className="text-primary-blue hover:underline">
-            Sign In
-          </a> */}
         </p>
       </div>
     </div>
