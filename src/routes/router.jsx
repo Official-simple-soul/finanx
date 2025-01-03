@@ -1,14 +1,14 @@
 import { Routes, Route } from 'react-router';
 import Home from '../pages/Home';
 import SignUp from '../pages/SignUp';
-import Login from '../pages/login';
+import SignIn from '../pages/SignIn';
 
 function AppRouter() {
   return (
     <Routes>
       <Route index element={<Home />} />
       {/* <Route path="about" element={<About />} /> */}
-      <Route path="login" element={<Login />} />
+      <Route path="login" element={<SignIn />} />
       <Route path="signup" element={<SignUp />} />
 
       {/* <Route element={<AuthLayout />}>
