@@ -19,22 +19,22 @@ function NavBarTwo() {
           <h1 className="text-xl font-bold text-primary rubik">FinanX</h1>
         </NavLink>
         <div className="hidden md:flex items-center gap-6">
-          <a href="#" className="font-medium">
+          <a href="#trading" className="font-medium">
             Trading Products
           </a>
-          <a href="#" className="font-medium">
+          <a href="#tools" className="font-medium">
             Platforms & Tools
           </a>
-          <a href="#" className="font-medium">
+          <a href="#account" className="font-medium">
             Accounts
           </a>
-          <a href="#" className="font-medium">
+          <a href="#pricing" className="font-medium">
             Pricing
           </a>
-          <a href="#" className="font-medium">
+          <a href="#assist" className="font-medium">
             Learn
           </a>
-          <a href="#" className="font-medium">
+          <a href="#news" className="font-medium">
             Insights
           </a>
         </div>
@@ -95,19 +95,19 @@ function NavBarTwo() {
       {isMenuOpen && (
         <div className="absolute top-full left-0 w-full bg-white shadow-md md:hidden">
           <div className="flex flex-col items-start p-4 space-y-4">
-            <a href="#" className="font-medium">
+            <a href="#trading" className="font-medium">
               Trading Products
             </a>
-            <a href="#" className="font-medium">
+            <a href="#tools" className="font-medium">
               Platforms & Tools
             </a>
-            <a href="#" className="font-medium">
+            <a href="#account" className="font-medium">
               Accounts
             </a>
-            <a href="#" className="font-medium">
+            <a href="#pricing" className="font-medium">
               Pricing
             </a>
-            <a href="#" className="font-medium">
+            <a href="#learn" className="font-medium">
               Learn
             </a>
             <a href="#" className="font-medium">

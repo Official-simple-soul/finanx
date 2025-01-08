@@ -8,7 +8,10 @@ function Home() {
   return (
     <div>
       <ScrollingTextAnimation />
-      <section className="flex flex-col-reverse md:flex-row md:h-[60vh] bg-primary">
+      <section
+        id="account"
+        className="flex flex-col-reverse md:flex-row md:h-[60vh] bg-primary"
+      >
         <div className="md:w-1/2 h-full space-y-6 flex flex-col justify-center px-6 md:px-32 py-12">
           <h1 className="text-[30px] md:text-[40px] leading-[50px] font-bold text-dark_blue">
             <span className="text-white">Destiny brought you here.</span>
@@ -85,7 +88,10 @@ function Home() {
           <div className="flex gap-4"></div>
         </div>
       </section>
-      <section className="md:w-[82%] mx-auto md:rounded-2xl overflow-hidden flex relative my-20">
+      <section
+        id="tools"
+        className="md:w-[82%] mx-auto md:rounded-2xl overflow-hidden flex relative my-20"
+      >
         <div className="left md:w-1/2 h-full space-y-10 p-6 md:p-12 z-40">
           <h1 className="text-3xl font-bold text-white">
             Private Brokerage – service without compromise
@@ -108,10 +114,10 @@ function Home() {
           />
         </div>
       </section>
-      <PlansSection />
+      <PlansSection id={'pricing'} />
       <AssistanceSection />
       <LatestNewsSection />
-      <section className="py-6">
+      <section id="trading" className="py-6">
         <NavLink to="/signup">
           <img src="/trade_banner.png" alt="" />
         </NavLink>

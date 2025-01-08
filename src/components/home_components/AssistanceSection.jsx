@@ -1,5 +1,5 @@
 const AssistanceSection = () => (
-  <section className="md:w-[82%] mx-auto py-10 px-6">
+  <section id="assist" className="md:w-[82%] mx-auto py-10 px-6">
     <h1 className="text-3xl font-bold text-center text-dark-blue mb-8">
       How we assist traders
     </h1>

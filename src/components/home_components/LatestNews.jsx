@@ -1,5 +1,5 @@
 const LatestNewsSection = () => (
-  <section className="md:w-[82%] mx-auto px-6 py-12">
+  <section id="news" className="md:w-[82%] mx-auto px-6 py-12">
     <h2 className="text-3xl font-bold text-dark-blue mb-8 text-center">
       The latest news at your fingertips
     </h2>

@@ -1,5 +1,5 @@
-const PlansSection = () => (
-  <section className="w-[82%] mx-auto py-12 text-center">
+const PlansSection = ({ id }) => (
+  <section id={id} className="w-[82%] mx-auto py-12 text-center">
     <h2 className="text-3xl font-bold text-dark-blue mb-8">Our plans</h2>
     <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
       {[

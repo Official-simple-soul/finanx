@@ -1,76 +1,124 @@
-import { NavLink } from 'react-router';
+import { useForm } from '@mantine/form';
+import {
+  TextInput,
+  PasswordInput,
+  Button,
+  Checkbox,
+  Group,
+  Anchor,
+  Box,
+  Container,
+  Title,
+  Text,
+} from '@mantine/core';
+import { NavLink, useNavigate } from 'react-router';
+import { showNotification } from '@mantine/notifications';
+import { useLogin } from './service';
+import { auth } from '../../firebase';
+import { useState } from 'react';
+import { useApp } from '../context/AppStore';
 
 function SignIn() {
+  const login = useLogin();
+  const { setUserToken } = useApp();
+  const [processing, setProcessing] = useState(false);
+  const navigate = useNavigate();
+
+  const form = useForm({
+    initialValues: {
+      email: '',
+      password: '',
+      rememberMe: false,
+    },
+
+    validate: {
+      email: (value) =>
+        /^\S+@\S+$/.test(value) ? null : 'Invalid email address',
+      password: (value) =>
+        value.trim().length > 0 ? null : 'Password is required',
+    },
+  });
+
+  const handleSignIn = (values) => {
+    setProcessing(true);
+    login.mutate(
+      { email: values.email, password: values.password },
+      {
+        onSuccess: (user) => {
+          localStorage.setItem('token', user.accessToken);
+          setUserToken(user.accessToken);
+          showNotification({
+            title: 'Login Successful',
+            message: 'Welcome back!',
+            color: 'green',
+          });
+          navigate('/dashboard');
+        },
+        onError: (error) => {
+          showNotification({
+            title: 'Error Logging In',
+            message: error.code.split('/')[1],
+            color: 'red',
+          });
+        },
+        onSettled: () => {
+          setProcessing(false);
+        },
+      }
+    );
+  };
+
   return (
-    <div className="h-screen flex items-center justify-center bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold text-dark-blue text-center">
+    <Container size="xs" className="mt-20">
+      <Box p="md" shadow="sm" radius="md" bg="white">
+        <Title align="center" mb="xs">
           Welcome Back
-        </h2>
-        <p className="text-center text-gray-500">Sign in to your account</p>
-        <form className="space-y-6">
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Email Address
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              required
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-primary-blue focus:border-primary-blue"
+        </Title>
+        <Text align="center" color="dimmed" size="sm" mb="md">
+          Sign in to your account
+        </Text>
+        <form onSubmit={form.onSubmit(handleSignIn)}>
+          <TextInput
+            label="Email Address"
+            placeholder="Enter your email"
+            name="email"
+            {...form.getInputProps('email')}
+            withAsterisk
+          />
+          <PasswordInput
+            label="Password"
+            placeholder="Enter your password"
+            mt="md"
+            {...form.getInputProps('password')}
+            withAsterisk
+          />
+          <Group position="apart" mt="md">
+            <Checkbox
+              label="Remember me"
+              {...form.getInputProps('rememberMe', { type: 'checkbox' })}
             />
-          </div>
-          <div>
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              required
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-primary-blue focus:border-primary-blue"
-            />
-          </div>
-          <div className="flex items-center justify-between">
-            <label className="flex items-center">
-              <input
-                type="checkbox"
-                className="form-checkbox h-5 w-5 text-primary-blue rounded focus:ring-primary-blue"
-              />
-              <span className="ml-2 text-sm text-gray-700">Remember me</span>
-            </label>
-            <a href="#" className="text-sm text-primary-blue hover:underline">
+            <Anchor size="sm" href="#" color="blue">
               Forgot password?
-            </a>
-          </div>
-          <button
+            </Anchor>
+          </Group>
+          <Button
             type="submit"
-            className="w-full bg-primary text-white py-2 px-4 rounded-lg font-semibold hover:bg-primary-blue-dark focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-offset-2"
+            fullWidth
+            mt="md"
+            color="blue"
+            loading={processing}
           >
             Sign In
-          </button>
+          </Button>
         </form>
-        <div className="text-center">
-          <p className="text-sm text-gray-500">
-            Don’t have an account?{' '}
-            <NavLink to="/signup" className="text-primary-blue hover:underline">
-              Open Account
-            </NavLink>
-            {/* <a href="#" className="text-primary-blue hover:underline">
-            Sign Up
-          </a> */}
-          </p>
-        </div>
-      </div>
-    </div>
+        <Text align="center" mt="md" size="sm">
+          Don’t have an account?{' '}
+          <Anchor component={NavLink} to="/signup" color="blue">
+            Open Account
+          </Anchor>
+        </Text>
+      </Box>
+    </Container>
   );
 }
 

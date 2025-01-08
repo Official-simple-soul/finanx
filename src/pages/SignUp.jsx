@@ -1,119 +1,150 @@
-import { NavLink } from 'react-router';
+import { useForm } from '@mantine/form';
+import {
+  TextInput,
+  PasswordInput,
+  Checkbox,
+  Button,
+  Group,
+  Box,
+  Container,
+  Title,
+  Text,
+  Anchor,
+} from '@mantine/core';
+import { showNotification } from '@mantine/notifications';
+import { useCreateUser } from './service';
+import { NavLink, useNavigate } from 'react-router';
+import { useState } from 'react';
 
-const SignUp = () => (
-  <div className="h-screen flex items-center justify-center bg-gray-100">
-    <div className="w-full max-w-lg p-8 space-y-6 mt-[80px] md:mt-0 bg-white rounded-lg shadow-lg">
-      <h2 className="text-2xl font-bold text-dark-blue text-center">
-        Create Your Account
-      </h2>
-      <p className="text-center text-gray-500">
-        Join us and explore all features
-      </p>
-      <form className="space-y-6">
-        <div>
-          <label
-            htmlFor="fullName"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Full Name
-          </label>
-          <input
-            type="text"
-            id="fullName"
-            name="fullName"
-            required
-            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-primary-blue focus:border-primary-blue"
+const SignUp = () => {
+  const createUserMutation = useCreateUser();
+  const [submitting, setSubmitting] = useState(false);
+
+  const form = useForm({
+    initialValues: {
+      fullName: '',
+      email: '',
+      phone: '',
+      password: '',
+      confirmPassword: '',
+      terms: false,
+    },
+
+    validate: {
+      fullName: (value) =>
+        value.trim().length > 0 ? null : 'Full name is required',
+      email: (value) =>
+        /^\S+@\S+$/.test(value) ? null : 'Invalid email address',
+      phone: (value) =>
+        value.trim().length >= 10
+          ? null
+          : 'Phone number must be at least 10 digits',
+      password: (value) =>
+        value.trim().length >= 6
+          ? null
+          : 'Password must be at least 6 characters long',
+      confirmPassword: (value, values) =>
+        value === values.password ? null : 'Passwords do not match',
+      terms: (value) =>
+        value ? null : 'You must agree to the terms and conditions',
+    },
+  });
+  const navigation = useNavigate();
+  const handleSignup = async (values) => {
+    setSubmitting(true);
+    createUserMutation.mutate(values, {
+      onSuccess: (user) => {
+        showNotification({
+          title: 'Account Created',
+          message: `Welcome, ${user.email}! Your account has been created.`,
+          color: 'green',
+        });
+
+        navigation('/kyc');
+      },
+      onError: (error) => {
+        showNotification({
+          title: 'Signup Failed',
+          message: error.message,
+          color: 'red',
+        });
+      },
+      onSettled: () => {
+        setSubmitting(false);
+      },
+    });
+  };
+
+  return (
+    <Container size="xs" className="mt-20">
+      <Box p="md" shadow="sm" radius="md" bg="white">
+        <Title align="center" mb="xs">
+          Create Your Account
+        </Title>
+        <Text align="center" color="dimmed" size="sm" mb="md">
+          Join us and explore all features
+        </Text>
+        <form onSubmit={form.onSubmit(handleSignup)}>
+          <TextInput
+            label="Full Name"
+            placeholder="John Doe"
+            {...form.getInputProps('fullName')}
+            withAsterisk
           />
-        </div>
-        <div>
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Email Address
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            required
-            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-primary-blue focus:border-primary-blue"
+          <TextInput
+            label="Email Address"
+            placeholder="example@example.com"
+            mt="md"
+            {...form.getInputProps('email')}
+            withAsterisk
           />
-        </div>
-        <div>
-          <label
-            htmlFor="phone"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Phone Number
-          </label>
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            required
-            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-primary-blue focus:border-primary-blue"
+          <TextInput
+            label="Phone Number"
+            placeholder="1234567890"
+            mt="md"
+            {...form.getInputProps('phone')}
+            withAsterisk
           />
-        </div>
-        <div>
-          <label
-            htmlFor="password"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            required
-            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-primary-blue focus:border-primary-blue"
+          <PasswordInput
+            label="Password"
+            placeholder="Your password"
+            mt="md"
+            {...form.getInputProps('password')}
+            withAsterisk
           />
-        </div>
-        <div>
-          <label
-            htmlFor="confirmPassword"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Confirm Password
-          </label>
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            required
-            className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-primary-blue focus:border-primary-blue"
+          <PasswordInput
+            label="Confirm Password"
+            placeholder="Confirm password"
+            mt="md"
+            {...form.getInputProps('confirmPassword')}
+            withAsterisk
           />
-        </div>
-        <div className="flex items-center justify-between">
-          <label className="flex items-center">
-            <input
-              type="checkbox"
-              required
-              className="form-checkbox h-5 w-5 text-primary-blue rounded focus:ring-primary-blue"
-            />
-            <span className="ml-2 text-sm text-gray-700">
-              I agree to the terms and conditions
-            </span>
-          </label>
-        </div>
-        <button
-          type="submit"
-          className="w-full bg-primary text-white py-2 px-4 rounded-lg font-semibold hover:bg-primary-blue-dark focus:outline-none focus:ring-2 focus:ring-primary-blue focus:ring-offset-2"
-        >
-          Sign Up
-        </button>
-      </form>
-      <div className="text-center">
-        <p className="text-sm text-gray-500">
+          <Checkbox
+            label="I agree to the terms and conditions"
+            mt="md"
+            {...form.getInputProps('terms', { type: 'checkbox' })}
+          />
+          <Group position="center" mt="md">
+            <Button
+              type="submit"
+              fullWidth
+              loading={submitting}
+              loaderProps={{ type: 'dots' }}
+              color="blue"
+            >
+              Sign Up
+            </Button>
+          </Group>
+        </form>
+        <Text align="center" mt="md" size="sm">
           Already have an account?{' '}
-          <NavLink to="/login" className="text-primary-blue hover:underline">
+          <Anchor component={NavLink} to="/login" color="blue">
             Sign In
-          </NavLink>
-        </p>
-      </div>
-    </div>
-  </div>
-);
+          </Anchor>
+        </Text>
+      </Box>
+    </Container>
+  );
+};
 
 export default SignUp;

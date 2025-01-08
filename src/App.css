@@ -8,3 +8,17 @@
 .rubik {
   font-family: 'Rubik Vinyl', serif;
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+#pricing,
+#news,
+#trading,
+#support,
+#tools,
+#assist,
+#account {
+  scroll-margin-top: 100px;
+}
