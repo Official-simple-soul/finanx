@@ -8,6 +8,8 @@ import {
   Badge,
   Group,
   Progress,
+  Center,
+  Modal,
 } from '@mantine/core';
 import {
   IconPlus,
@@ -16,37 +18,22 @@ import {
   IconHistory,
 } from '@tabler/icons-react';
 import { DashboardLayout } from './DashboardLayout';
+import { recentTransactions, userBalance } from '../data/dashboardData';
+import { useState } from 'react';
+import { IconCheck } from '@tabler/icons-react';
+import { IconGift } from '@tabler/icons-react';
+import { IconAward } from '@tabler/icons-react';
 
 function Dashboard() {
-  const userBalance = '2.45 ETH';
-  const recentTransactions = [
-    {
-      id: '0x1a2b3c',
-      type: 'Received',
-      amount: '1.00 ETH',
-      status: 'Success',
-      timestamp: '2023-12-31 10:23',
-    },
-    {
-      id: '0x4d5e6f',
-      type: 'Sent',
-      amount: '0.25 ETH',
-      status: 'Pending',
-      timestamp: '2023-12-30 16:45',
-    },
-    {
-      id: '0x7g8h9i',
-      type: 'Top-Up',
-      amount: '0.50 ETH',
-      status: 'Success',
-      timestamp: '2023-12-30 14:10',
-    },
-  ];
+  const [claimRewardModal, setClaimRewardModal] = useState(true);
+
+  const handleClaimReward = () => {
+    setClaimRewardModal(false);
+  };
 
   return (
     <DashboardLayout>
       <div>
-        {/* User Balance Section */}
         <Card shadow="md" radius="sm" withBorder mb="lg">
           <Group position="apart">
             <Title order={3}>Balance</Title>
@@ -156,7 +143,7 @@ function Dashboard() {
                 <Button
                   radius="md"
                   variant="light"
-                  leftIcon={<IconPlus />}
+                  leftSection={<IconPlus />}
                   color="green"
                 >
                   Add Liquidity
@@ -164,7 +151,7 @@ function Dashboard() {
                 <Button
                   radius="md"
                   variant="light"
-                  leftIcon={<IconWallet />}
+                  leftSection={<IconWallet />}
                   color="blue"
                 >
                   Withdraw Funds
@@ -209,6 +196,54 @@ function Dashboard() {
           </Grid.Col>
         </Grid>
       </div>
+
+      <Modal
+        opened={claimRewardModal}
+        onClose={() => setClaimRewardModal(false)}
+        title={
+          <Group>
+            <IconGift size={24} />
+            <Text size="lg" weight={600}>
+              Claim Your Reward!
+            </Text>
+          </Group>
+        }
+        centered
+        radius="md"
+      >
+        <Center>
+          {/* <img
+            src="https://cdn-icons-png.flaticon.com/512/1792/1792879.png"
+            alt="Reward"
+            width={150}
+            height={150}
+          /> */}
+          <IconAward size={150} color="green" />
+        </Center>
+        <Text align="center" color="dimmed">
+          Congratulations! You are eligible for a special reward. Claim it now
+          to unlock exclusive benefits and perks for your Web3 journey.
+        </Text>
+        <Group position="center" mt="lg">
+          <Button
+            onClick={handleClaimReward}
+            leftSection={<IconCheck />}
+            size="md"
+            radius="md"
+            color="green"
+          >
+            Claim Reward
+          </Button>
+          <Button
+            onClick={() => setClaimRewardModal(false)}
+            variant="outline"
+            size="md"
+            radius="md"
+          >
+            Maybe Later
+          </Button>
+        </Group>
+      </Modal>
     </DashboardLayout>
   );
 }

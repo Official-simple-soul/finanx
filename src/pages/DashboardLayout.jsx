@@ -9,12 +9,14 @@ import {
   IconLogout,
 } from '@tabler/icons-react';
 import { signOut } from 'firebase/auth';
-import { auth } from '../../firebase';
+import { auth, db } from '../../firebase';
 import { useApp } from '../context/AppStore';
+import { useEffect } from 'react';
+import { doc, getDoc } from 'firebase/firestore';
 
 export function DashboardLayout({ children }) {
   const [opened, { toggle }] = useDisclosure();
-  const { setUserToken } = useApp();
+  const { setUserToken, userProfile, setUserProfile } = useApp();
   const location = useLocation();
 
   const sidebarItems = [
@@ -35,6 +37,30 @@ export function DashboardLayout({ children }) {
     setUserToken(null);
   };
 
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const currentUser = auth.currentUser;
+      if (!currentUser) {
+        return null;
+      }
+
+      const docRef = doc(db, 'users', currentUser.uid);
+      try {
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setUserProfile(docSnap.data());
+          return docSnap.data();
+        } else {
+          return null;
+        }
+      } catch (error) {
+        console.error('Error fetching user profile:', error);
+        return null;
+      }
+    };
+    fetchProfile();
+  }, [auth]);
+
   return (
     <AppShell
       header={{ height: 60 }}
@@ -53,7 +79,15 @@ export function DashboardLayout({ children }) {
       <AppShell.Header>
         <Group h="100%" px="md">
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-          <h1 className="text-2xl font-bold text-dark-blue">Dashboard</h1>
+          <div className="flex items-center justify-between w-full">
+            <h1 className="text-2xl font-bold text-dark-blue">Dashboard</h1>
+            <div className="flex items-center gap-3">
+              <IconUser />
+              <h1 className="text-xl text-dark-blue">
+                Hi, {userProfile?.fullName?.split(' ')?.[0]}
+              </h1>
+            </div>
+          </div>
         </Group>
       </AppShell.Header>
 
