@@ -49,7 +49,7 @@ const KYCScreen = () => {
           idCardBase64: base64Image,
         },
       });
-      localStorage.setItem('token', auth.currentUser.getIdToken());
+      sessionStorage.setItem('token', auth.currentUser.getIdToken());
 
       showNotification({
         title: 'KYC Submitted',

@@ -30,8 +30,8 @@ export function DashboardLayout({ children }) {
 
   const logout = () => {
     signOut(auth);
-    localStorage.removeItem('token');
-    window.location.replace = '/login';
+    sessionStorage.removeItem('token');
+    window.location.replace = '/';
     setUserToken(null);
   };
 

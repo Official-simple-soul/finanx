@@ -45,7 +45,7 @@ function SignIn() {
       { email: values.email, password: values.password },
       {
         onSuccess: (user) => {
-          localStorage.setItem('token', user.accessToken);
+          sessionStorage.setItem('token', user.accessToken);
           setUserToken(user.accessToken);
           showNotification({
             title: 'Login Successful',

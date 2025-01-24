@@ -54,7 +54,7 @@ function Dashboard() {
               Web3 Wallet
             </Badge>
           </Group>
-          <Text align="center" mt="md" size="xl" weight="bold">
+          <Text align="left" mt="md" size="xl" weight="bolder">
             {userBalance}
           </Text>
           <Group position="center" mt="lg">
