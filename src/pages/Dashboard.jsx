@@ -64,7 +64,9 @@ function Dashboard() {
               <Table highlightOnHover>
                 <thead>
                   <tr>
-                    <th className="text-left">Transaction ID</th>
+                    <th className="text-left hidden md:block">
+                      Transaction ID
+                    </th>
                     <th className="text-left">Type</th>
                     <th className="text-left">Amount</th>
                     <th className="text-left">Status</th>
@@ -73,7 +75,7 @@ function Dashboard() {
                 <tbody>
                   {recentTransactions.map((tx) => (
                     <tr key={tx.id}>
-                      <td>{tx.id}</td>
+                      <td className="hidden md:block">{tx.id}</td>
                       <td>{tx.type}</td>
                       <td>{tx.amount}</td>
                       <td>
@@ -212,13 +214,7 @@ function Dashboard() {
         radius="md"
       >
         <Center>
-          {/* <img
-            src="https://cdn-icons-png.flaticon.com/512/1792/1792879.png"
-            alt="Reward"
-            width={150}
-            height={150}
-          /> */}
-          <IconAward size={150} color="green" />
+          <IconAward size={100} color="green" />
         </Center>
         <Text align="center" color="dimmed">
           Congratulations! You are eligible for a special reward. Claim it now

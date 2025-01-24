@@ -77,10 +77,13 @@ export function DashboardLayout({ children }) {
     >
       {/* Header */}
       <AppShell.Header>
-        <Group h="100%" px="md">
+        {/* <Group h="100%" px="md"> */}
+        <div className="flex p-4 justify-between w-full">
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-          <div className="flex items-center justify-between w-full">
-            <h1 className="text-2xl font-bold text-dark-blue">Dashboard</h1>
+          <div className="flex items-center justify-between md:w-full">
+            <h1 className="text-2xl font-bold text-dark-blue hidden md:block">
+              Dashboard
+            </h1>
             <div className="flex items-center gap-3">
               <IconUser />
               <h1 className="text-xl text-dark-blue">
@@ -88,7 +91,8 @@ export function DashboardLayout({ children }) {
               </h1>
             </div>
           </div>
-        </Group>
+        </div>
+        {/* </Group> */}
       </AppShell.Header>
 
       {/* Sidebar with Tabler Icons */}
