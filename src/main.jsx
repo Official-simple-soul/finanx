@@ -12,6 +12,7 @@ import '@mantine/core/styles.css';
 import { notifications, Notifications } from '@mantine/notifications';
 import { MantineProvider } from '@mantine/core';
 import '@mantine/notifications/styles.css';
+import '@mantine/carousel/styles.css';
 import { AppProvider } from './context/AppStore.jsx';
 
 const queryClient = new QueryClient({

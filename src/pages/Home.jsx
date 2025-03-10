@@ -3,6 +3,7 @@ import AssistanceSection from '../components/home_components/AssistanceSection';
 import LatestNewsSection from '../components/home_components/LatestNews';
 import PlansSection from '../components/home_components/PlansSection';
 import ScrollingTextAnimation from '../components/home_components/ScrollingText';
+import Testimonial from '../components/home_components/Testimonial';
 
 function Home() {
   return (
@@ -116,6 +117,7 @@ function Home() {
       </section>
       <PlansSection id={'pricing'} />
       <AssistanceSection />
+      <Testimonial />
       <LatestNewsSection />
       <section id="trading" className="py-6">
         <NavLink to="/signup">
