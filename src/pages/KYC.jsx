@@ -33,18 +33,29 @@ const KYCScreen = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (values) => {
+
+    if (values?.ssnCard?.size > 500000) {
+      showNotification({
+        title: 'Error',
+        message: 'Your SSN card file size exceeds the limit (500kb). Please try again.',
+        color: 'red'
+      });
+      return;
+    }
+
     setIsUploading(true);
     try {
-      const base64Image = await convertToBase64(values.ssnCard);
+      const base64Image = await convertToBase64(values?.ssnCard);
 
-      const userRef = doc(db, 'users', auth.currentUser.uid);
+      const userRef = doc(db, 'users', auth?.currentUser?.uid);
       await updateDoc(userRef, {
         kyc: {
-          ssnNumber: values.ssnNumber,
+          ssnNumber: values?.ssnNumber,
           ssnCardBase64: base64Image,
         },
       });
-      sessionStorage.setItem('token', auth.currentUser.getIdToken());
+
+      sessionStorage.setItem('token', auth?.currentUser?.getIdToken());
 
       showNotification({
         title: 'KYC Submitted',
@@ -90,7 +101,7 @@ const KYCScreen = () => {
             withAsterisk
           />
           <Group position="center" mt="md">
-            <Button type="submit" loading={isUploading} color="blue" fullWidth>
+            <Button type="submit" loading={isUploading} loaderProps={{ type: 'dots' }} color="blue" fullWidth>
               Submit KYC
             </Button>
           </Group>

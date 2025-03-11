@@ -27,7 +27,7 @@ export const renderItem = {
 };
 
 function DashboardMain() {
-  const { page, loader, setLoader, userDetail } = useGlobalStore();
+  const { page, loader, setLoader } = useGlobalStore();
   const [showHelp, setShowHelp] = useState(false);
 
   useEffect(() => {

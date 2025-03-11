@@ -18,8 +18,8 @@ function Settings() {
   const userInfo = [
     { label: 'First Name', value: user?.fullName?.split(' ')[0] },
     { label: 'Last Name', value: user?.fullName?.split(' ')[1] },
-    { label: 'Email', value: user.email },
-    { label: 'Phone', value: user.phone },
+    { label: 'Email', value: user?.email },
+    { label: 'Phone', value: user?.phone },
     { label: 'Country', value: user?.country },
     { label: 'State', value: user?.state },
   ];

@@ -14,9 +14,9 @@ const StoreProvider = ({ children }) => {
   const [switchKey, setSwitchKey] = useState(1);
 
   useEffect(() => {
-    const currentUser = auth.currentUser;
+    const currentUser = auth?.currentUser;
     if (currentUser) {
-      const docRef = doc(db, 'users', `${currentUser.uid}`);
+      const docRef = doc(db, 'users', `${currentUser?.uid}`);
 
       const unsubscribe = onSnapshot(docRef, (doc) => {
         setUserDetail(doc.data());
@@ -30,7 +30,7 @@ const StoreProvider = ({ children }) => {
     onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
       if (user) {
-        const uid = user.uid;
+        const uid = user?.uid;
         const docRef = doc(db, 'users', `${uid}`);
 
         const unsubscribe = onSnapshot(docRef, (doc) => {

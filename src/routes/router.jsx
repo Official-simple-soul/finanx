@@ -6,13 +6,6 @@ import KYCScreen from '../pages/KYC';
 import Dashboard from '../pages/Dashboard';
 import { useApp } from '../context/AppStore';
 
-// ProtectedRoute Component
-function ProtectedRoute({ children }) {
-  const { userToken } = useApp();
-  const token = userToken || localStorage.getItem('token');
-  return token ? children : <Navigate to="/login" />;
-}
-
 function AppRouter() {
   return (
     <Routes>
@@ -23,9 +16,7 @@ function AppRouter() {
       <Route
         path="dashboard"
         element={
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
+          <Dashboard />
         }
       />
     </Routes>

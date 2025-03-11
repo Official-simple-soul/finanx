@@ -20,7 +20,7 @@ import { expected } from '../../../utils/constants';
 
 function Home() {
   const { setPage, setLoader } = useGlobalStore();
-  const { data: user } = useGetUser(auth.currentUser.uid)
+  const { data: user } = useGetUser(auth?.currentUser?.uid)
   const [open, setOpen] = useState(true)
   const [opened, setOpened] = useState(true)
 

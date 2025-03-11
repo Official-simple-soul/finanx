@@ -57,7 +57,7 @@ const SignUp = () => {
       onSuccess: (user) => {
         showNotification({
           title: 'Account Created',
-          message: `Welcome, ${user.email}! Your account has been created.`,
+          message: `Welcome, ${user?.email}! Your account has been created.`,
           color: 'green',
         });
 

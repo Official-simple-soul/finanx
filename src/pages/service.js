@@ -17,9 +17,9 @@ const useCreateUser = () => {
         password
       );
       const user = userCredential.user;
-      const userRef = doc(db, 'users', user.uid);
+      const userRef = doc(db, 'users', user?.uid);
       await setDoc(userRef, {
-        uid: user.uid,
+        uid: user?.uid,
         email,
         fullName,
         phone,

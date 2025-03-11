@@ -12,12 +12,12 @@ export const AppProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchProfile = async () => {
-      const currentUser = auth.currentUser;
+      const currentUser = auth?.currentUser;
       if (!currentUser) {
         return null;
       }
 
-      const docRef = doc(db, 'users', currentUser.uid);
+      const docRef = doc(db, 'users', currentUser?.uid);
       try {
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {

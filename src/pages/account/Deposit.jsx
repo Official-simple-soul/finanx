@@ -11,7 +11,7 @@ import { auth } from '../../../firebase';
 
 function Deposit() {
   const [open, setOpen] = useState([]);
-  const { data: user } = useGetUser(auth.currentUser.uid)
+  const { data: user } = useGetUser(auth?.currentUser?.uid)
 
   const handleOpen = (num) => {
     setOpen((prev) => {
@@ -37,7 +37,7 @@ function Deposit() {
 
               <div className="flex justify-between items-center space-y-3 space-x-5">
                 <p className="text-xl font-bold text-gray-500">
-                  &#36; {user.balance?.toLocaleString() || 0.0}
+                  &#36; {user?.balance?.toLocaleString() || 0.0}
                 </p>
                 <p className="text-xl font-bold text-gray-500">USD</p>
               </div>
@@ -46,7 +46,7 @@ function Deposit() {
           }
           <div className="flex justify-between items-center space-y-3 space-x-5">
             <p className="text-3xl font-bold">
-              &#36; {user.mainBalance?.toLocaleString() || 0.0}
+              &#36; {user?.mainBalance?.toLocaleString() || 0.0}
             </p>
             <p className="text-3xl font-bold">USD</p>
           </div>
@@ -179,26 +179,6 @@ function Deposit() {
             </div>
           </div>
         </div>
-        {/* <div className="convert_from bg-white py-7 px-3 rounded-xl shadow space-y-2">
-          <div className="flex justify-between items-center">
-            <span className="text-[12px]">Card Balance</span>
-            <span className="text-gray-500 text-[12px]"></span>
-          </div>
-          <div className="flex justify-between items-center space-y-3 space-x-5">
-            <p className="text-3xl font-bold">&#36; 0.00</p>
-            <p className="text-3xl font-bold">USD</p>
-          </div>
-          <p className="text-sm text-pri">Active</p>
-          <div className="accordion">
-            <div
-              className="first w-full h-10 bg-black rounded-xl flex justify-between items-center text-white px-4 text-sm cursor-pointer"
-              onClick={() => handlePageChange('swap')}
-            >
-              <p>Swap from Euro balance to Card</p>
-              <MdKeyboardControlKey />
-            </div>
-          </div>
-        </div> */}
         <div className="convert_from bg-white py-7 px-3 rounded-xl shadow space-y-2">
           <div className="flex justify-between items-center">
             <span className="text-[12px]">Free Balance</span>

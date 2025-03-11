@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router';
 function AsideLeft() {
   const { page, setPage, setLoader } = useGlobalStore();
   const { setUserToken } = useApp()
-  const { data: user } = useGetUser(auth.currentUser.uid)
+  const { data: user } = useGetUser(auth?.currentUser?.uid)
   const [active, setActive] = useState(0);
 
   const primaryNavContent = [

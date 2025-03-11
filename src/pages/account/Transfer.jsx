@@ -12,7 +12,7 @@ function Transfer() {
   const { currencyWithFlag } = useCurrency();
   const { setLoader, setPage, switchKey } = useGlobalStore();
   const [transferConfirmModal, setTransferConfirmModal] = useState(false);
-  const { data: user } = useGetUser(auth.currentUser.uid)
+  const { data: user } = useGetUser(auth?.currentUser?.uid)
 
   const handleTransferFund = (e) => {
     e.preventDefault();
