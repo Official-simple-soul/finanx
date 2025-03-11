@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useForm } from '@mantine/form';
 import {
   TextInput,
-  Select,
   Button,
   FileInput,
   Box,
@@ -21,16 +20,14 @@ const KYCScreen = () => {
   const [isUploading, setIsUploading] = useState(false);
   const form = useForm({
     initialValues: {
-      idNumber: '',
-      idType: '',
-      idCard: null,
+      ssnNumber: '',
+      ssnCard: null,
     },
 
     validate: {
-      idNumber: (value) =>
-        value.trim().length > 0 ? null : 'ID Number is required',
-      idType: (value) => (value ? null : 'ID Type is required'),
-      idCard: (value) => (value ? null : 'Please upload your ID card'),
+      ssnNumber: (value) =>
+        value.trim().length > 0 ? null : 'SSN Number is required',
+      ssnCard: (value) => (value ? null : 'Please upload your SSN card'),
     },
   });
   const navigate = useNavigate();
@@ -38,15 +35,13 @@ const KYCScreen = () => {
   const handleSubmit = async (values) => {
     setIsUploading(true);
     try {
-      const base64Image = await convertToBase64(values.idCard);
+      const base64Image = await convertToBase64(values.ssnCard);
 
-      // Save KYC data with Base64 image
       const userRef = doc(db, 'users', auth.currentUser.uid);
       await updateDoc(userRef, {
         kyc: {
-          idNumber: values.idNumber,
-          idType: values.idType,
-          idCardBase64: base64Image,
+          ssnNumber: values.ssnNumber,
+          ssnCardBase64: base64Image,
         },
       });
       sessionStorage.setItem('token', auth.currentUser.getIdToken());
@@ -81,29 +76,17 @@ const KYCScreen = () => {
         </Text>
         <form onSubmit={form.onSubmit(handleSubmit)}>
           <TextInput
-            label="ID Number"
-            placeholder="Enter your ID number"
-            {...form.getInputProps('idNumber')}
-            withAsterisk
-          />
-          <Select
-            label="ID Type"
-            placeholder="Select your ID type"
-            mt="md"
-            data={[
-              { value: 'passport', label: 'Passport' },
-              { value: 'national_id', label: 'National ID' },
-              { value: 'driver_license', label: "Driver's License" },
-            ]}
-            {...form.getInputProps('idType')}
+            label="SSN Number"
+            placeholder="Enter your SSN number"
+            {...form.getInputProps('ssnNumber')}
             withAsterisk
           />
           <FileInput
-            label="Upload ID Card"
-            placeholder="Upload your ID card"
+            label="Upload SSN Card"
+            placeholder="Upload your SSN card"
             mt="md"
             accept="image/*"
-            {...form.getInputProps('idCard')}
+            {...form.getInputProps('ssnCard')}
             withAsterisk
           />
           <Group position="center" mt="md">
