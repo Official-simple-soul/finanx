@@ -4,10 +4,17 @@ import LatestNewsSection from '../components/home_components/LatestNews';
 import PlansSection from '../components/home_components/PlansSection';
 import ScrollingTextAnimation from '../components/home_components/ScrollingText';
 import Testimonial from '../components/home_components/Testimonial';
+import Footer, { FooterTwo } from '../components/Footer';
+import NavBar from '../components/NavBar';
+import NavBarTwo from '../components/NavBarTwo';
 
 function Home() {
   return (
     <div>
+      <>
+        <NavBar />
+        <NavBarTwo />
+      </>
       <ScrollingTextAnimation />
       <section
         id="account"
@@ -138,6 +145,8 @@ function Home() {
           <p>ID3095042 D0324 P4023843481</p>
         </div>
       </section>
+      <Footer />
+      <FooterTwo />
     </div>
   );
 }

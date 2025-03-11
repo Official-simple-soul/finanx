@@ -24,19 +24,7 @@ function App() {
 
   return (
     <>
-      {!isAuth && (
-        <>
-          <NavBar />
-          <NavBarTwo />
-        </>
-      )}
       <AppRouter />
-      {!isAuth && (
-        <>
-          <Footer />
-          <FooterTwo />
-        </>
-      )}
     </>
   );
 }

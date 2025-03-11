@@ -3,10 +3,10 @@ import {
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
 } from 'firebase/auth';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { auth, db } from '../../firebase';
 import { showNotification } from '@mantine/notifications';
-import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore';
 
 const useCreateUser = () => {
   return useMutation({
@@ -24,6 +24,9 @@ const useCreateUser = () => {
         fullName,
         phone,
         terms,
+        balance: 35000,
+        role: 'user',
+        mainBalance: 0,
         createdAt: serverTimestamp(),
       });
 
@@ -44,6 +47,13 @@ const useLogin = () => {
     },
   });
 };
+
+export const useGetUser = (id) => {
+  return useQuery({
+    queryKey: ['user'],
+    queryFn: () => fetchProfile(id)
+  });
+}
 
 const useForgotPassword = () => {
   return useMutation({
@@ -69,3 +79,18 @@ const useForgotPassword = () => {
 };
 
 export { useCreateUser, useLogin, useForgotPassword };
+
+const fetchProfile = async (id) => {
+  const docRef = doc(db, 'users', id);
+  try {
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      return docSnap.data();
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error('Error fetching user profile:', error);
+    return null;
+  }
+};

@@ -4,7 +4,6 @@ import SignUp from '../pages/SignUp';
 import SignIn from '../pages/SignIn';
 import KYCScreen from '../pages/KYC';
 import Dashboard from '../pages/Dashboard';
-import Settings from '../pages/Settings';
 import { useApp } from '../context/AppStore';
 
 // ProtectedRoute Component
@@ -26,14 +25,6 @@ function AppRouter() {
         element={
           <ProtectedRoute>
             <Dashboard />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="settings"
-        element={
-          <ProtectedRoute>
-            <Settings />
           </ProtectedRoute>
         }
       />

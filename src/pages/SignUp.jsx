@@ -13,8 +13,9 @@ import {
 } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import { useCreateUser } from './service';
-import { NavLink, useNavigate } from 'react-router';
+import { Link, NavLink, useNavigate } from 'react-router';
 import { useState } from 'react';
+import { IconArrowNarrowLeft } from '@tabler/icons-react';
 
 const SignUp = () => {
   const createUserMutation = useCreateUser();
@@ -77,6 +78,9 @@ const SignUp = () => {
 
   return (
     <Container size="xs" className="mt-20">
+      <Link to={'/'}>
+        <IconArrowNarrowLeft />
+      </Link>
       <Box p="md" shadow="sm" radius="md" bg="white">
         <Title align="center" mb="xs">
           Create Your Account

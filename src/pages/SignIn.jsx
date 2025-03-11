@@ -11,12 +11,12 @@ import {
   Title,
   Text,
 } from '@mantine/core';
-import { NavLink, useNavigate } from 'react-router';
+import { Link, NavLink, useNavigate } from 'react-router';
 import { showNotification } from '@mantine/notifications';
 import { useLogin } from './service';
-import { auth } from '../../firebase';
 import { useState } from 'react';
 import { useApp } from '../context/AppStore';
+import { IconArrowNarrowLeft } from '@tabler/icons-react';
 
 function SignIn() {
   const login = useLogin();
@@ -47,6 +47,7 @@ function SignIn() {
         onSuccess: (user) => {
           sessionStorage.setItem('token', user.accessToken);
           setUserToken(user.accessToken);
+
           showNotification({
             title: 'Login Successful',
             message: 'Welcome back!',
@@ -70,6 +71,9 @@ function SignIn() {
 
   return (
     <Container size="xs" className="mt-20">
+      <Link to={'/'}>
+        <IconArrowNarrowLeft />
+      </Link>
       <Box p="md" shadow="sm" radius="md" bg="white">
         <Title align="center" mb="xs">
           Welcome Back

@@ -14,6 +14,7 @@ import { MantineProvider } from '@mantine/core';
 import '@mantine/notifications/styles.css';
 import '@mantine/carousel/styles.css';
 import { AppProvider } from './context/AppStore.jsx';
+import { StoreProvider } from './store/Context.jsx';
 
 const queryClient = new QueryClient({
   queryCache: new QueryCache({
@@ -32,14 +33,16 @@ const queryClient = new QueryClient({
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <MantineProvider>
-      <AppProvider>
-        <Notifications position="top-right" />
-        <QueryClientProvider client={queryClient}>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </QueryClientProvider>
-      </AppProvider>
+      <StoreProvider>
+        <AppProvider>
+          <Notifications position="top-right" />
+          <QueryClientProvider client={queryClient}>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </QueryClientProvider>
+        </AppProvider>
+      </StoreProvider>
     </MantineProvider>
   </StrictMode>
 );
